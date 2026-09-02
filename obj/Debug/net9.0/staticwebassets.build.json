@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "sbV8i7CPVLr9//04n7WMKiwQ5Yifei2qnfeGTBe7L6E=",
+  "Source": "CareHomeApi",
+  "BasePath": "_content/CareHomeApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

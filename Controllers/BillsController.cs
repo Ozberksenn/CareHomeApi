@@ -1,4 +1,5 @@
 using CareHomeApi.DTOs.Bill;
+using CareHomeApi.Exceptions;
 using CareHomeApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,15 +32,29 @@ public class BillsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<BillDto>> Create(CreateBillDto dto)
     {
-        var created = await _service.CreateAsync(dto);
-        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        try
+        {
+            var created = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+        catch (DuplicateBillException ex)
+        {
+            return Conflict(new { message = ex.Message });
+        }
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, UpdateBillDto dto)
     {
-        var updated = await _service.UpdateAsync(id, dto);
-        return updated ? NoContent() : NotFound();
+        try
+        {
+            var updated = await _service.UpdateAsync(id, dto);
+            return updated ? NoContent() : NotFound();
+        }
+        catch (DuplicateBillException ex)
+        {
+            return Conflict(new { message = ex.Message });
+        }
     }
 
     [HttpDelete("{id:int}")]

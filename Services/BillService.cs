@@ -1,7 +1,9 @@
 using CareHomeApi.Data;
 using CareHomeApi.DTOs.Bill;
+using CareHomeApi.Exceptions;
 using CareHomeApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace CareHomeApi.Services;
 
@@ -17,7 +19,7 @@ public class BillService : IBillService
     public async Task<List<BillDto>> GetAllAsync()
     {
         return await _context.Bills
-            .Include(b => b.Recipient)
+            .Include(b => b.UtilityBillType)
             .Select(b => ToDto(b))
             .ToListAsync();
     }
@@ -25,7 +27,7 @@ public class BillService : IBillService
     public async Task<BillDto?> GetByIdAsync(int id)
     {
         var bill = await _context.Bills
-            .Include(b => b.Recipient)
+            .Include(b => b.UtilityBillType)
             .FirstOrDefaultAsync(b => b.Id == id);
 
         return bill is null ? null : ToDto(bill);
@@ -35,20 +37,15 @@ public class BillService : IBillService
     {
         var bill = new Models.Bill
         {
-            RecipientId = dto.RecipientId,
-            Description = dto.Description,
+            UtilityBillTypeId = dto.UtilityBillTypeId,
             Amount = dto.Amount,
-            IsPaid = dto.IsPaid,
             PaidDate = dto.PaidDate ?? DateOnly.FromDateTime(DateTime.UtcNow)
         };
 
         _context.Bills.Add(bill);
-        await _context.SaveChangesAsync();
+        await SaveOrThrowDuplicateAsync();
 
-        if (bill.RecipientId is not null)
-        {
-            await _context.Entry(bill).Reference(b => b.Recipient).LoadAsync();
-        }
+        await _context.Entry(bill).Reference(b => b.UtilityBillType).LoadAsync();
 
         return ToDto(bill);
     }
@@ -61,14 +58,24 @@ public class BillService : IBillService
             return false;
         }
 
-        bill.RecipientId = dto.RecipientId;
-        bill.Description = dto.Description;
+        bill.UtilityBillTypeId = dto.UtilityBillTypeId;
         bill.Amount = dto.Amount;
-        bill.IsPaid = dto.IsPaid;
         bill.PaidDate = dto.PaidDate;
 
-        await _context.SaveChangesAsync();
+        await SaveOrThrowDuplicateAsync();
         return true;
+    }
+
+    private async Task SaveOrThrowDuplicateAsync()
+    {
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateException ex) when (ex.InnerException is PostgresException { SqlState: "23505" })
+        {
+            throw new DuplicateBillException("Bu fatura türü için seçilen aya ait bir ödeme kaydı zaten var.");
+        }
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -87,11 +94,9 @@ public class BillService : IBillService
     private static BillDto ToDto(Models.Bill bill) => new()
     {
         Id = bill.Id,
-        RecipientId = bill.RecipientId,
-        RecipientFullName = bill.Recipient?.FullName,
-        Description = bill.Description,
+        UtilityBillTypeId = bill.UtilityBillTypeId,
+        UtilityBillTypeName = bill.UtilityBillType?.Name,
         Amount = bill.Amount,
-        IsPaid = bill.IsPaid,
         PaidDate = bill.PaidDate,
         CreatedAt = bill.CreatedAt
     };

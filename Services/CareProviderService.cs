@@ -33,8 +33,7 @@ public class CareProviderService : ICareProviderService
         {
             FullName = dto.FullName,
             Phone = dto.Phone,
-            Email = dto.Email,
-            MonthlySalary = dto.MonthlySalary
+            Email = dto.Email
         };
 
         _context.CareProviders.Add(provider);
@@ -54,7 +53,6 @@ public class CareProviderService : ICareProviderService
         provider.FullName = dto.FullName;
         provider.Phone = dto.Phone;
         provider.Email = dto.Email;
-        provider.MonthlySalary = dto.MonthlySalary;
 
         await _context.SaveChangesAsync();
         return true;
@@ -79,7 +77,6 @@ public class CareProviderService : ICareProviderService
         FullName = provider.FullName,
         Phone = provider.Phone,
         Email = provider.Email,
-        MonthlySalary = provider.MonthlySalary,
         CreatedAt = provider.CreatedAt
     };
 }

@@ -32,7 +32,8 @@ public class CareRecipientService : ICareRecipientService
         var recipient = new Models.CareRecipient
         {
             FullName = dto.FullName,
-            BirthDate = dto.BirthDate
+            BirthDate = dto.BirthDate,
+            MonthlySalary = dto.MonthlySalary
         };
 
         _context.CareRecipients.Add(recipient);
@@ -51,6 +52,7 @@ public class CareRecipientService : ICareRecipientService
 
         recipient.FullName = dto.FullName;
         recipient.BirthDate = dto.BirthDate;
+        recipient.MonthlySalary = dto.MonthlySalary;
 
         await _context.SaveChangesAsync();
         return true;
@@ -74,6 +76,7 @@ public class CareRecipientService : ICareRecipientService
         Id = recipient.Id,
         FullName = recipient.FullName,
         BirthDate = recipient.BirthDate,
+        MonthlySalary = recipient.MonthlySalary,
         CreatedAt = recipient.CreatedAt
     };
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CareHomeApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1afff935a8079fb8c00edb12c368ea9cb4c8588b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0190941e9448cd0be0769a4c9af3796ae8642e16")]
 [assembly: System.Reflection.AssemblyProductAttribute("CareHomeApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CareHomeApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

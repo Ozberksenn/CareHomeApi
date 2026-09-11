@@ -22,6 +22,17 @@ public class BillsController : ControllerBase
         return Ok(await _service.GetAllAsync());
     }
 
+    [HttpGet("by-month")]
+    public async Task<ActionResult<MonthlyBillsDto>> GetByMonth([FromQuery] int? year, [FromQuery] int? month)
+    {
+        if (month is < 1 or > 12)
+        {
+            return BadRequest(new { message = "Ay değeri 1 ile 12 arasında olmalıdır." });
+        }
+
+        return Ok(await _service.GetByMonthAsync(year, month));
+    }
+
     [HttpGet("{id:int}")]
     public async Task<ActionResult<BillDto>> GetById(int id)
     {

@@ -6,6 +6,7 @@ public class CareRecipientDto
     public string FullName { get; set; } = string.Empty;
     public DateOnly BirthDate { get; set; }
     public decimal? MonthlySalary { get; set; }
+    public decimal? SupplementalPayment { get; set; }
     public DateTime CreatedAt { get; set; }
 }
 
@@ -14,6 +15,7 @@ public class CreateCareRecipientDto
     public string FullName { get; set; } = string.Empty;
     public DateOnly BirthDate { get; set; }
     public decimal? MonthlySalary { get; set; }
+    public decimal? SupplementalPayment { get; set; }
 }
 
 public class UpdateCareRecipientDto
@@ -21,4 +23,5 @@ public class UpdateCareRecipientDto
     public string FullName { get; set; } = string.Empty;
     public DateOnly BirthDate { get; set; }
     public decimal? MonthlySalary { get; set; }
+    public decimal? SupplementalPayment { get; set; }
 }

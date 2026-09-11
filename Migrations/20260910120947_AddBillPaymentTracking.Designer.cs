@@ -3,6 +3,7 @@ using System;
 using CareHomeApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CareHomeApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260910120947_AddBillPaymentTracking")]
+    partial class AddBillPaymentTracking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,10 +124,6 @@ namespace CareHomeApi.Migrations
                     b.Property<decimal?>("MonthlySalary")
                         .HasColumnType("numeric")
                         .HasColumnName("monthly_salary");
-
-                    b.Property<decimal?>("SupplementalPayment")
-                        .HasColumnType("numeric")
-                        .HasColumnName("supplemental_payment");
 
                     b.HasKey("Id")
                         .HasName("pk_care_recipients");

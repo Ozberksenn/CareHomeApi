@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "sbV8i7CPVLr9//04n7WMKiwQ5Yifei2qnfeGTBe7L6E=",
-  "Source": "CareHomeApi",
-  "BasePath": "_content/CareHomeApi",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"gDK8CU/OKNBmDa47HFWc6hNojaxD6vWXca8uqKUbIpU=","Source":"CareHomeApi","BasePath":"/","Mode":"Root","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

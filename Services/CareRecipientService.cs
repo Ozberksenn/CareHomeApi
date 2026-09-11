@@ -33,7 +33,8 @@ public class CareRecipientService : ICareRecipientService
         {
             FullName = dto.FullName,
             BirthDate = dto.BirthDate,
-            MonthlySalary = dto.MonthlySalary
+            MonthlySalary = dto.MonthlySalary,
+            SupplementalPayment = dto.SupplementalPayment
         };
 
         _context.CareRecipients.Add(recipient);
@@ -53,6 +54,7 @@ public class CareRecipientService : ICareRecipientService
         recipient.FullName = dto.FullName;
         recipient.BirthDate = dto.BirthDate;
         recipient.MonthlySalary = dto.MonthlySalary;
+        recipient.SupplementalPayment = dto.SupplementalPayment;
 
         await _context.SaveChangesAsync();
         return true;
@@ -77,6 +79,7 @@ public class CareRecipientService : ICareRecipientService
         FullName = recipient.FullName,
         BirthDate = recipient.BirthDate,
         MonthlySalary = recipient.MonthlySalary,
+        SupplementalPayment = recipient.SupplementalPayment,
         CreatedAt = recipient.CreatedAt
     };
 }

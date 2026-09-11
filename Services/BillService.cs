@@ -24,6 +24,30 @@ public class BillService : IBillService
             .ToListAsync();
     }
 
+    public async Task<MonthlyBillsDto> GetByMonthAsync(int? year, int? month)
+    {
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+        var targetYear = year ?? today.Year;
+        var targetMonth = month ?? today.Month;
+
+        var startOfMonth = new DateOnly(targetYear, targetMonth, 1);
+        var startOfNextMonth = startOfMonth.AddMonths(1);
+
+        var bills = await _context.Bills
+            .Include(b => b.UtilityBillType)
+            .Where(b => b.BillDate >= startOfMonth && b.BillDate < startOfNextMonth)
+            .Select(b => ToDto(b))
+            .ToListAsync();
+
+        return new MonthlyBillsDto
+        {
+            Year = targetYear,
+            Month = targetMonth,
+            TotalAmount = bills.Sum(b => b.Amount),
+            Bills = bills
+        };
+    }
+
     public async Task<BillDto?> GetByIdAsync(int id)
     {
         var bill = await _context.Bills
@@ -39,7 +63,9 @@ public class BillService : IBillService
         {
             UtilityBillTypeId = dto.UtilityBillTypeId,
             Amount = dto.Amount,
-            PaidDate = dto.PaidDate ?? DateOnly.FromDateTime(DateTime.UtcNow)
+            BillDate = dto.BillDate ?? DateOnly.FromDateTime(DateTime.UtcNow),
+            IsPaid = dto.IsPaid,
+            PaidDate = dto.IsPaid ? dto.PaidDate ?? DateOnly.FromDateTime(DateTime.UtcNow) : null
         };
 
         _context.Bills.Add(bill);
@@ -60,7 +86,9 @@ public class BillService : IBillService
 
         bill.UtilityBillTypeId = dto.UtilityBillTypeId;
         bill.Amount = dto.Amount;
-        bill.PaidDate = dto.PaidDate;
+        bill.BillDate = dto.BillDate;
+        bill.IsPaid = dto.IsPaid;
+        bill.PaidDate = dto.IsPaid ? dto.PaidDate ?? DateOnly.FromDateTime(DateTime.UtcNow) : null;
 
         await SaveOrThrowDuplicateAsync();
         return true;
@@ -97,6 +125,8 @@ public class BillService : IBillService
         UtilityBillTypeId = bill.UtilityBillTypeId,
         UtilityBillTypeName = bill.UtilityBillType?.Name,
         Amount = bill.Amount,
+        BillDate = bill.BillDate,
+        IsPaid = bill.IsPaid,
         PaidDate = bill.PaidDate,
         CreatedAt = bill.CreatedAt
     };

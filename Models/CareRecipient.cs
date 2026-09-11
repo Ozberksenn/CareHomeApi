@@ -7,6 +7,6 @@ public class CareRecipient
     public DateOnly BirthDate { get; set; }
     public decimal? MonthlySalary { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
+    public decimal? SupplementalPayment { get; set; }
     public ICollection<Note> Notes { get; set; } = new List<Note>();
 }

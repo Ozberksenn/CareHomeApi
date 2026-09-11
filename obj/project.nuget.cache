@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7y2giVCwxB8=",
+  "dgSpecHash": "3Eh6Op5OQbY=",
   "success": true,
-  "projectFilePath": "/Users/ozberksen/Desktop/CareHomeApi/CareHomeApi/CareHomeApi.csproj",
+  "projectFilePath": "/Users/ozberksen/Desktop/develop/CareHomeApi/CareHomeApi.csproj",
   "expectedPackageFiles": [
     "/Users/ozberksen/.nuget/packages/efcore.namingconventions/9.0.0/efcore.namingconventions.9.0.0.nupkg.sha512",
     "/Users/ozberksen/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
@@ -63,7 +63,10 @@
     "/Users/ozberksen/.nuget/packages/system.reflection.metadata/7.0.0/system.reflection.metadata.7.0.0.nupkg.sha512",
     "/Users/ozberksen/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "/Users/ozberksen/.nuget/packages/system.text.json/9.0.9/system.text.json.9.0.9.nupkg.sha512",
-    "/Users/ozberksen/.nuget/packages/system.threading.channels/7.0.0/system.threading.channels.7.0.0.nupkg.sha512"
+    "/Users/ozberksen/.nuget/packages/system.threading.channels/7.0.0/system.threading.channels.7.0.0.nupkg.sha512",
+    "/Users/ozberksen/.nuget/packages/microsoft.netcore.app.ref/9.0.20/microsoft.netcore.app.ref.9.0.20.nupkg.sha512",
+    "/Users/ozberksen/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.20/microsoft.aspnetcore.app.ref.9.0.20.nupkg.sha512",
+    "/Users/ozberksen/.nuget/packages/microsoft.netcore.app.host.osx-arm64/9.0.20/microsoft.netcore.app.host.osx-arm64.9.0.20.nupkg.sha512"
   ],
   "logs": []
 }

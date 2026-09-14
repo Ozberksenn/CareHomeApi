@@ -1,0 +1,13 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+## Environment / secrets
+.env
+appsettings.Production.json
+
+## OS
+.DS_Store

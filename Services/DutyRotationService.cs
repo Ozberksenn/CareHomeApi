@@ -155,8 +155,9 @@ public class DutyRotationService : IDutyRotationService
 
     private static DateOnly WeekStart(DateOnly date)
     {
-        var daysSinceMonday = ((int)date.DayOfWeek + 6) % 7;
-        return date.AddDays(-daysSinceMonday);
+        // Duty weeks run Tuesday -> Monday (shifted one day later than a calendar week).
+        var daysSinceWeekStart = ((int)date.DayOfWeek + 5) % 7;
+        return date.AddDays(-daysSinceWeekStart);
     }
 
     private static int WeekIndex(DateOnly weekStart, int rotationCount)
